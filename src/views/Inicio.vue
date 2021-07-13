@@ -2,7 +2,7 @@
 <div>
 
     <h1>Ruta protegida</h1>
-    <p>{{usuario.email}}</p>
+    <p v-if="usuario">{{usuario.email}}</p>
 
 </div>
 </template>
