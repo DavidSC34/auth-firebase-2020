@@ -3,16 +3,35 @@
 
     <h1>Ruta protegida</h1>
     <p v-if="usuario">{{usuario.email}}</p>
+        <router-link to='/agregar'>
+            <button>Agregar</button>
+        </router-link>
+    <ul>
+        <li v-for="(item,index) in tareas" :key="index">
+            {{item.id}} - {{item.nombre}}
+            <router-link :to="{name: 'Editar', params: {id: item.id}}">
+                    <button>Editar</button>
+            </router-link>
+        </li>
+    </ul>
+
 
 </div>
 </template>
 <script>
-import {mapState} from 'vuex'
+import {mapState, mapActions} from 'vuex'
 export default {
     name:'Inicio',
     computed: {
-       ...mapState(['usuario'])
+       ...mapState(['usuario','tareas'])
     },
+    methods:{
+        ...mapActions(['getTareas'])
+    },
+    created(){
+        this.getTareas();
+    }
+    
 
 }
 </script>
