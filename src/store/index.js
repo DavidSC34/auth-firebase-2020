@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import { auth,db } from '../firebase';
+import { auth, db } from '../firebase';
 import router from '../router';
 
 Vue.use(Vuex)
@@ -10,7 +10,7 @@ export default new Vuex.Store({
         usuario: null,
         error: null,
         tareas: [],
-        tarea:{nombre:'',id:''}
+        tarea: { nombre: '', id: '' }
     },
     mutations: {
         setUsuario(state, payload) {
@@ -19,44 +19,53 @@ export default new Vuex.Store({
         setError(state, payload) {
             state.error = payload;
         },
-        setTareas(state, payload){
+        setTareas(state, payload) {
             state.tareas = payload
         },
-        setTarea(state, payload){
+        setTarea(state, payload) {
             state.tarea = payload
         }
     },
     actions: {
-        getTarea({commit,state}, id){
+        agregarTarea({ commit, state }, nombreTarea) {
+            db.collection(state.usuario.email).add({
+                    nombre: nombreTarea
+                })
+                .then(doc => {
+                    router.push('/')
+                })
+                .catch(error => console.log(error))
+        },
+        getTarea({ commit, state }, id) {
             db.collection(state.usuario.email).doc(id).get()
-            .then(doc => {
-                // console.log(doc.data())
-                // console.log(doc.id)
-                let tarea = doc.data()
-                tarea.id = doc.id
-                commit('setTarea', tarea)
-            })
+                .then(doc => {
+                    // console.log(doc.data())
+                    // console.log(doc.id)
+                    let tarea = doc.data()
+                    tarea.id = doc.id
+                    commit('setTarea', tarea)
+                })
         },
-        editarTarea({commit,state}, tarea){
+        editarTarea({ commit, state }, tarea) {
             db.collection(state.usuario.email).doc(tarea.id).update({
-                nombre: tarea.nombre
-            })
-            .then(() => {
-                router.push({name: 'Inicio'})
-            })
+                    nombre: tarea.nombre
+                })
+                .then(() => {
+                    router.push({ name: 'Inicio' })
+                })
         },
-        getTareas({commit, state}){
+        getTareas({ commit, state }) {
             const tareas = [];
             db.collection(state.usuario.email).get()
-            .then(res => {
-                res.forEach(doc => {
-                    let tarea = doc.data();
-                    tarea.id = doc.id;
-                    tareas.push(tarea);
+                .then(res => {
+                    res.forEach(doc => {
+                        let tarea = doc.data();
+                        tarea.id = doc.id;
+                        tareas.push(tarea);
+                    })
+                    commit('setTareas', tareas);
                 })
-                commit('setTareas', tareas);
-            })
-            .catch(error => console.log(error))
+                .catch(error => console.log(error))
         },
         crearUsuario({ commit }, usuario) {
 
@@ -69,19 +78,19 @@ export default new Vuex.Store({
                     }
 
                     //Para asignar sus base de tareas al usuario
-                    db.collection(res.user.email).add({ 
-                        nombre:'Tarea ejemplo'
-                    }).then( doc =>{
-                        
+                    db.collection(res.user.email).add({
+                        nombre: 'Tarea ejemplo'
+                    }).then(doc => {
+
                         commit('setUsuario', usuarioCreado);
                         router.push('/')
 
-                    }).catch(error=>console.log(error))
-                    
+                    }).catch(error => console.log(error))
+
 
                 })
                 .catch(error => {
-                    console.log(error);
+
                     commit('setError', error)
                 })
         },
@@ -103,24 +112,24 @@ export default new Vuex.Store({
 
 
         },
-        cerrarSesion({commit}){
+        cerrarSesion({ commit }) {
             auth.signOut()
-            .then(()=>{
-                router.push('/acceso')
-            })
+                .then(() => {
+                    router.push('/acceso')
+                })
         },
-        detectarUsuario({commit},usuario){
-                commit('setUsuario',usuario)
+        detectarUsuario({ commit }, usuario) {
+            commit('setUsuario', usuario)
         }
     },
-    getters:{
-       existeUsuario(state){
-           if(state.usuario === null){
-               return false;
-           }else{
-               return true;
-           }
-       }
+    getters: {
+        existeUsuario(state) {
+            if (state.usuario === null) {
+                return false;
+            } else {
+                return true;
+            }
+        }
     },
     modules: {}
 })

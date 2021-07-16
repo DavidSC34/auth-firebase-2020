@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import {auth} from '../firebase'
+import { auth } from '../firebase'
 
 
 Vue.use(VueRouter)
@@ -31,7 +31,14 @@ const routes = [
         name: 'Editar',
         component: () =>
             import ( /* webpackChunkName: "Editar" */ '../views/Editar.vue'),
-            meta: { requiresAuth: true }
+        meta: { requiresAuth: true }
+    },
+    {
+        path: '/agregar',
+        name: 'Agregar',
+        component: () =>
+            import ( /* webpackChunkName: "Agregar" */ '../views/Agregar.vue'),
+        meta: { requiresAuth: true }
     }
 ]
 
@@ -41,21 +48,21 @@ const router = new VueRouter({
     routes
 })
 
-router.beforeEach((to,from,next)=>{
-    if(to.matched.some(record => record.meta.requiresAuth)){
+router.beforeEach((to, from, next) => {
+    if (to.matched.some(record => record.meta.requiresAuth)) {
 
         const usuario = auth.currentUser;
         console.log(usuario);
 
-        if(!usuario){
-            
-            next({path:'/acceso'});
-        }else{
+        if (!usuario) {
+
+            next({ path: '/acceso' });
+        } else {
 
             next();
         }
-    }else{
-        next();//->llevalo a esa ruta
+    } else {
+        next(); //->llevalo a esa ruta
     }
 })
 
