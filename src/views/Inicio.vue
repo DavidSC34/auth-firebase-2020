@@ -12,6 +12,7 @@
             <router-link :to="{name: 'Editar', params: {id: item.id}}">
                     <button>Editar</button>
             </router-link>
+             <button @click="eliminarTarea(item.id)">Eliminar</button>
         </li>
     </ul>
 
@@ -26,7 +27,7 @@ export default {
        ...mapState(['usuario','tareas'])
     },
     methods:{
-        ...mapActions(['getTareas'])
+        ...mapActions(['getTareas','eliminarTarea'])
     },
     created(){
         this.getTareas();
