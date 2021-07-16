@@ -7,18 +7,21 @@
                 type="email" 
                 placeholder="Ingrese su correo"
                 v-model="email"
+                class="form-control mb-2"
             >
             <input 
                 type="password" 
                 placeholder="Ingrese contraseña"
-                v-model="pass1"            
+                v-model="pass1"
+                class="form-control mb-2"            
             >
             <input 
                 type="password" 
                 placeholder="Repita contraseña"
-                v-model="pass2"            
+                v-model="pass2"
+                class="form-control mb-2"            
             >
-            <button type="submit" :disabled="!desactivar">Registrar usuario</button>
+            <button type="submit" :disabled="!desactivar" class="btn btn-primary">Registrar usuario</button>
         </form>
         <p>{{error}}</p>
     </div>
