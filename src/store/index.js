@@ -10,7 +10,11 @@ export default new Vuex.Store({
         usuario: null,
         error: null,
         tareas: [],
-        tarea: { nombre: '', id: '' }
+        tarea: { nombre: '', id: '' },
+        cartelera:{},
+        carteleras:[],
+        pelea:{},
+        peleas:{}
     },
     mutations: {
         setUsuario(state, payload) {
@@ -21,6 +25,9 @@ export default new Vuex.Store({
         },
         setTareas(state, payload) {
             state.tareas = payload
+        },
+        setCarteleras(state,payload){
+        state.carteleras = payload;
         },
         setTarea(state, payload) {
             state.tarea = payload
@@ -76,6 +83,17 @@ export default new Vuex.Store({
                     commit('setTareas', tareas);
                 })
                 .catch(error => console.log(error))
+        },
+        async getCarteleras({ commit, state }){
+            const carteleras = [];
+            try{
+            const res = await fetch('http://localhost:3000/carteleras');
+            const dataDB = await res.json();
+            console.log(dataDB);
+            commit('setCarteleras', dataDB.detalle);
+            }catch(error){
+                console.log(error);
+            }
         },
         crearUsuario({ commit }, usuario) {
 

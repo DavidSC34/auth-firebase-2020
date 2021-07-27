@@ -1,7 +1,7 @@
 <template>
-<div>
+<div class="mt-2">
 
-    <h1>Ruta protegida</h1>
+    <h1>Carteleras</h1>
    
         <router-link to='/agregar'>
             <button class='btn btn-primary mb-2'>Agregar</button>
@@ -16,7 +16,7 @@
         </li>
     </ul>
 
-
+{{carteleras}}
 </div>
 </template>
 <script>
@@ -24,13 +24,14 @@ import {mapState, mapActions} from 'vuex'
 export default {
     name:'Inicio',
     computed: {
-       ...mapState(['usuario','tareas'])
+       ...mapState(['usuario','tareas','carteleras'])
     },
     methods:{
-        ...mapActions(['getTareas','eliminarTarea'])
+        ...mapActions(['getTareas','eliminarTarea','getCarteleras'])
     },
     created(){
         this.getTareas();
+        this.getCarteleras();
     }
     
 
