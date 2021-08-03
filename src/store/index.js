@@ -95,6 +95,19 @@ export default new Vuex.Store({
                 console.log(error);
             }
         },
+        async editarCartelera({commit},cartelera){
+           try {
+               const res = await fetch(`http://localhost:3000/carteleras/${cartelera.id}`,{
+                   method:'PUT',
+                   body:JSON.stringify(cartelera)
+               });
+               const dataDB = res.json();
+               console.log(dataDB);
+
+           } catch (error) {
+               console.log(error);
+           }
+        },
         crearUsuario({ commit }, usuario) {
 
             auth.createUserWithEmailAndPassword(usuario.email, usuario.password)

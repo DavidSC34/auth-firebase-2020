@@ -16,7 +16,12 @@
         </li>
     </ul>
 
-{{carteleras}}
+    <ul class="list-group">
+        <li v-for="(item,index) in carteleras" :key="index" class="list-group-item">
+                {{item.id_cartelera}} - {{item.date}} -  {{item.place}}
+        </li>
+    </ul>
+
 </div>
 </template>
 <script>
