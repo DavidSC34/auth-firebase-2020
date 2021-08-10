@@ -3,10 +3,10 @@
 
     <h1>Carteleras</h1>
    
-        <router-link to='/agregar'>
+        <router-link to='/agregarCartelera'>
             <button class='btn btn-primary mb-2'>Agregar</button>
         </router-link>
-    <ul class="list-group">
+    <!-- <ul class="list-group">
         <li v-for="(item,index) in tareas" :key="index" class="list-group-item">
             {{item.id}} - {{item.nombre}}
             <router-link :to="{name: 'Editar', params: {id: item.id}}" class="float-right ml-2">
@@ -14,11 +14,15 @@
             </router-link>
              <button @click="eliminarTarea(item.id)" class='btn btn-danger float-right'>Eliminar</button>
         </li>
-    </ul>
+    </ul> -->
 
     <ul class="list-group">
         <li v-for="(item,index) in carteleras" :key="index" class="list-group-item">
                 {{item.id_cartelera}} - {{item.date}} -  {{item.place}}
+                <router-link :to="{name:'EditarCartelera', params: {id: item.id}}"  class="float-right ml-2">
+                      <button class="btn btn-warning">Editar</button>
+                </router-link>
+                <button class='btn btn-danger float-right'>Eliminar</button>
         </li>
     </ul>
 
@@ -29,13 +33,13 @@ import {mapState, mapActions} from 'vuex'
 export default {
     name:'Inicio',
     computed: {
-       ...mapState(['usuario','tareas','carteleras'])
+       ...mapState(['usuario','carteleras'])
     },
     methods:{
-        ...mapActions(['getTareas','eliminarTarea','getCarteleras'])
+        ...mapActions(['getCarteleras'])
     },
     created(){
-        this.getTareas();
+       
         this.getCarteleras();
     }
     

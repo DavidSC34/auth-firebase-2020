@@ -11,10 +11,20 @@ export default new Vuex.Store({
         error: null,
         tareas: [],
         tarea: { nombre: '', id: '' },
-        cartelera:{},
-        carteleras:[],
-        pelea:{},
-        peleas:{}
+        cartelera: {
+            id: '',
+            date: '',
+            country: '',
+            city: '',
+            state: '',
+            commission: '',
+            promoter: '',
+            place: '',
+            uid: ''
+        },
+        carteleras: [],
+        pelea: {},
+        peleas: {}
     },
     mutations: {
         setUsuario(state, payload) {
@@ -24,16 +34,19 @@ export default new Vuex.Store({
             state.error = payload;
         },
         setTareas(state, payload) {
-            state.tareas = payload
-        },
-        setCarteleras(state,payload){
-        state.carteleras = payload;
+            state.tareas = payload;
         },
         setTarea(state, payload) {
-            state.tarea = payload
+            state.tarea = payload;
         },
         setEliminarTarea(state, payload) {
             state.tareas = state.tareas.filter(item => item.id !== payload)
+        },
+        setCarteleras(state, payload) {
+            state.carteleras = payload;
+        },
+        setCartelera({ commit }, payload) {
+            state.cartelera = payload;
         }
     },
     actions: {
@@ -84,39 +97,56 @@ export default new Vuex.Store({
                 })
                 .catch(error => console.log(error))
         },
-        async getCarteleras({ commit, state }){
-            const carteleras = [];
-            try{
-            const res = await fetch('http://localhost:3000/carteleras');
-            const dataDB = await res.json();
-            console.log(dataDB);
-            commit('setCarteleras', dataDB.detalle);
-            }catch(error){
+        async agregarCartelera({ commit }, cartelera) {
+            console.log(cartelera);
+            try {
+                const res = await fetch('http://localhost:3000/carteleras', {
+                    method: 'POST',
+                    headers: { "Content-type": "application/json; charset=UTF-8" },
+                    body: JSON.stringify(cartelera),
+
+                });
+
+                const dataDB = await res.json();
+                console.log(dataDB);
+
+            } catch (error) {
                 console.log(error);
             }
         },
-        async editarCartelera({commit},cartelera){
-           try {
-               const res = await fetch(`http://localhost:3000/carteleras/${cartelera.id}`,{
-                   method:'PUT',
-                   body:JSON.stringify(cartelera)
-               });
-               const dataDB = res.json();
-               console.log(dataDB);
-
-           } catch (error) {
-               console.log(error);
-           }
+        async getCarteleras({ commit }) {
+            //const carteleras = [];
+            try {
+                const res = await fetch('http://localhost:3000/carteleras');
+                const dataDB = await res.json();
+                console.log(typeof dataDB.detalle);
+                commit('setCarteleras', dataDB.detalle);
+            } catch (error) {
+                console.log(error);
+            }
         },
-        async getCartelera({commit}, id){
+        async editarCartelera({ commit }, cartelera) {
+            try {
+                const res = await fetch(`http://localhost:3000/carteleras/${cartelera.id}`, {
+                    method: 'PUT',
+                    body: JSON.stringify(cartelera)
+                });
+                const dataDB = res.json();
+                console.log(dataDB);
+
+            } catch (error) {
+                console.log(error);
+            }
+        },
+        async getCartelera({ commit }, id) {
             try {
                 const res = await fetch(`http://localhost:3000/carteleras/${id}`);
                 const dataDB = res.json();
                 console.log(dataDB);
-                   
+
             } catch (error) {
                 console.log(error);
-            }  
+            }
         },
         crearUsuario({ commit }, usuario) {
 
