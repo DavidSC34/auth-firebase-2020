@@ -102,7 +102,7 @@ export default new Vuex.Store({
             try {
                 const res = await fetch('http://localhost:3000/carteleras', {
                     method: 'POST',
-                    headers: { "Content-type": "application/json; charset=UTF-8" },
+                    headers: { "Content-type": "application/x-www-form-urlencoded; charset=UTF-8" },
                     body: JSON.stringify(cartelera),
 
                 });
