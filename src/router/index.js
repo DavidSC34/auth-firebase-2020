@@ -48,7 +48,7 @@ const routes = [
         meta: { requiresAuth: true }
     },
     {
-        path: '/editarCartelera',
+        path: '/editarCartelera/:id',
         name: 'EditarCartelera',
         component: () =>
             import ( /* webpackChunkName: "Agregar" */ '../views/EditarCartelera.vue'),

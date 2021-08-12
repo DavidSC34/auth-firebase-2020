@@ -45,7 +45,7 @@ export default new Vuex.Store({
         setCarteleras(state, payload) {
             state.carteleras = payload;
         },
-        setCartelera({ commit }, payload) {
+        setCartelera( state , payload) {
             state.cartelera = payload;
         }
     },
@@ -119,7 +119,7 @@ export default new Vuex.Store({
             try {
                 const res = await fetch('http://localhost:3000/carteleras');
                 const dataDB = await res.json();
-                console.log(typeof dataDB.detalle);
+               // console.log(typeof dataDB.detalle);
                 commit('setCarteleras', dataDB.detalle);
             } catch (error) {
                 console.log(error);
@@ -129,10 +129,11 @@ export default new Vuex.Store({
             try {
                 const res = await fetch(`http://localhost:3000/carteleras/${cartelera.id}`, {
                     method: 'PUT',
+                    headers: { "Content-type": "application/x-www-form-urlencoded; charset=UTF-8" },
                     body: JSON.stringify(cartelera)
                 });
-                const dataDB = res.json();
-                console.log(dataDB);
+                const resDB = await res.json();
+                console.log(resDB);
 
             } catch (error) {
                 console.log(error);
@@ -140,9 +141,23 @@ export default new Vuex.Store({
         },
         async getCartelera({ commit }, id) {
             try {
+                console.log(id);
                 const res = await fetch(`http://localhost:3000/carteleras/${id}`);
-                const dataDB = res.json();
-                console.log(dataDB);
+                const dataDB = await res.json();
+                console.log(dataDB.detalle[0]);
+                let cartelera = {
+                    id: dataDB.detalle[0].id_cartelera,
+                    date: dataDB.detalle[0].date,
+                    country: dataDB.detalle[0].country,
+                    city: dataDB.detalle[0].city,
+                    state: dataDB.detalle[0].state,
+                    commission: dataDB.detalle[0].commission,
+                    promoter: dataDB.detalle[0].promoter,
+                    place: dataDB.detalle[0].place,
+                    uid: dataDB.detalle[0].uid
+                }
+               
+                commit('setCartelera',cartelera);
 
             } catch (error) {
                 console.log(error);
