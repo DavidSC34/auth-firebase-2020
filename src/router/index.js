@@ -53,6 +53,13 @@ const routes = [
         component: () =>
             import ( /* webpackChunkName: "Agregar" */ '../views/EditarCartelera.vue'),
         meta: { requiresAuth: true }
+    }, ,
+    {
+        path: '/verCartelera/:id',
+        name: 'VerCartelera',
+        component: () =>
+            import ( /* webpackChunkName: "Agregar" */ '../views/VerCartelera.vue'),
+        meta: { requiresAuth: true }
     }
 ]
 

@@ -50,11 +50,13 @@
                     <td>{{item.promoter}}</td>
                     <td>{{item.place}}</td>
                     <td>
+                        <router-link :to="{name:'VerCartelera', params: {id: item.id_cartelera}}"><i class="bi-card-list"></i></router-link>
                         <router-link :to="{name:'EditarCartelera', params: {id: item.id_cartelera}}"  class="float-right ml-2">
-                            <button class="btn btn-warning">Editar</button>
+                            <!-- <button class="btn btn-warning">Editar</button> -->
+                            <i class="bi-file-text"></i>
                         </router-link>
-                        <button class='btn btn-danger float-right'>Eliminar</button>
-
+                        <!-- <button class='btn btn-danger float-right' @click="eliminarCartelera(item)">Eliminar</button> -->
+                         <i class="bi-trash float-right" @click="eliminarCartelera(item)"></i>
                     </td>
                 </tr>
             </tbody>
@@ -71,7 +73,7 @@ export default {
        ...mapState(['usuario','carteleras'])
     },
     methods:{
-        ...mapActions(['getCarteleras'])
+        ...mapActions(['getCarteleras','eliminarCartelera'])
     },
     created(){
        

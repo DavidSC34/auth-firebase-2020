@@ -24,7 +24,7 @@ export default new Vuex.Store({
         },
         carteleras: [],
         pelea: {},
-        peleas: {}
+        peleas: []
     },
     mutations: {
         setUsuario(state, payload) {
@@ -45,7 +45,7 @@ export default new Vuex.Store({
         setCarteleras(state, payload) {
             state.carteleras = payload;
         },
-        setCartelera( state , payload) {
+        setCartelera(state, payload) {
             state.cartelera = payload;
         }
     },
@@ -109,6 +109,9 @@ export default new Vuex.Store({
 
                 const dataDB = await res.json();
                 console.log(dataDB);
+                if (dataDB.status == 200) {
+                    router.push('/')
+                }
 
             } catch (error) {
                 console.log(error);
@@ -119,7 +122,7 @@ export default new Vuex.Store({
             try {
                 const res = await fetch('http://localhost:3000/carteleras');
                 const dataDB = await res.json();
-               // console.log(typeof dataDB.detalle);
+                // console.log(typeof dataDB.detalle);
                 commit('setCarteleras', dataDB.detalle);
             } catch (error) {
                 console.log(error);
@@ -133,7 +136,12 @@ export default new Vuex.Store({
                     body: JSON.stringify(cartelera)
                 });
                 const resDB = await res.json();
-                console.log(resDB);
+                // console.log(resDB);
+                if (resDB.status == 200) {
+                    router.push('/');
+                } else {
+                    alert(resDB.detalle);
+                }
 
             } catch (error) {
                 console.log(error);
@@ -156,9 +164,29 @@ export default new Vuex.Store({
                     place: dataDB.detalle[0].place,
                     uid: dataDB.detalle[0].uid
                 }
-               
-                commit('setCartelera',cartelera);
 
+                commit('setCartelera', cartelera);
+
+            } catch (error) {
+                console.log(error);
+            }
+        },
+        async eliminarCartelera({ commit }, cartelera) {
+            // console.log(cartelera);
+            // return;
+            try {
+                const res = await fetch(`http://localhost:3000/carteleras/${cartelera.id_cartelera}`, {
+                    method: 'DELETE',
+                    headers: { "Content-type": "application/x-www-form-urlencoded; charset=UTF-8" },
+                    body: JSON.stringify(cartelera)
+                });
+                const resDB = await res.json();
+                console.log(resDB);
+                if (resDB.status == 200) {
+                    this.state.carteleras = this.state.carteleras.filter(item => item.id_cartelera !== cartelera.id_cartelera)
+                } else {
+                    alert(resDB.detalle);
+                }
             } catch (error) {
                 console.log(error);
             }
