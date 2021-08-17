@@ -212,6 +212,23 @@ export default new Vuex.Store({
         },
         agregarPelea({ commit }, pelea) {
             console.log(pelea);
+            try {
+                const res = await fetch('http://localhost:3000/carteleras', {
+                    method: 'POST',
+                    headers: { "Content-type": "application/x-www-form-urlencoded; charset=UTF-8" },
+                    body: JSON.stringify(cartelera),
+
+                });
+
+                const dataDB = await res.json();
+                console.log(dataDB);
+                if (dataDB.status == 200) {
+                    router.push('/')
+                }
+
+            } catch (error) {
+                console.log(error);
+            }
         },
         eliminarPelea({ commit }, pelea) {
             console.log(pelea);
