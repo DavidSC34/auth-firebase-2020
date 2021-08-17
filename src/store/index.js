@@ -47,6 +47,9 @@ export default new Vuex.Store({
         },
         setCartelera(state, payload) {
             state.cartelera = payload;
+        },
+        setPeleas(state, payload) {
+            state.peleas = payload;
         }
     },
     actions: {
@@ -190,6 +193,28 @@ export default new Vuex.Store({
             } catch (error) {
                 console.log(error);
             }
+        },
+
+        async getPeleasCartelera({ commit }, id) {
+            try {
+                const res = await fetch(`http://localhost:3000/pelea-cartelera/${id}`);
+                const dataDB = await res.json();
+                // console.log(typeof dataDB.detalle);
+                if (dataDB.status == 200) {
+
+                    commit('setPeleas', dataDB.detalle);
+                } else {
+                    alert(dataDB.detalle);
+                }
+            } catch (error) {
+                console.log(error);
+            }
+        },
+        agregarPelea({ commit }, pelea) {
+            console.log(pelea);
+        },
+        eliminarPelea({ commit }, pelea) {
+            console.log(pelea);
         },
         crearUsuario({ commit }, usuario) {
 

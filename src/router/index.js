@@ -53,14 +53,28 @@ const routes = [
         component: () =>
             import ( /* webpackChunkName: "Agregar" */ '../views/EditarCartelera.vue'),
         meta: { requiresAuth: true }
-    }, ,
+    },
     {
         path: '/verCartelera/:id',
         name: 'VerCartelera',
         component: () =>
             import ( /* webpackChunkName: "Agregar" */ '../views/VerCartelera.vue'),
         meta: { requiresAuth: true }
-    }
+    },
+    {
+        path: '/agregarPelea',
+        name: 'AgregarPelea',
+        component: () =>
+            import ( /* webpackChunkName: "Agregar" */ '../views/AgregarPelea.vue'),
+        meta: { requiresAuth: true }
+    },
+    {
+        path: '/editarPelea/:id',
+        name: 'EditarPelea',
+        component: () =>
+            import ( /* webpackChunkName: "Agregar" */ '../views/EditarPelea.vue'),
+        meta: { requiresAuth: true }
+    },
 ]
 
 const router = new VueRouter({
