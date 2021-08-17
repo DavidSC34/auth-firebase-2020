@@ -62,7 +62,7 @@ const routes = [
         meta: { requiresAuth: true }
     },
     {
-        path: '/agregarPelea',
+        path: '/agregarPelea/:id_cartelera',
         name: 'AgregarPelea',
         component: () =>
             import ( /* webpackChunkName: "Agregar" */ '../views/AgregarPelea.vue'),

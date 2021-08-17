@@ -2,7 +2,7 @@
   <div class="mt-5">
 
     <h1 class="mb-4">Peleas en la cartelera</h1>
-     <router-link to='/agregarPelea' >
+     <router-link :to="{name:'AgregarPelea', params: {id_cartelera:id}}" >
             <button class='btn btn-primary mb-2'>Agregar</button>
     </router-link>
    

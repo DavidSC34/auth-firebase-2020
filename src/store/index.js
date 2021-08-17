@@ -210,20 +210,22 @@ export default new Vuex.Store({
                 console.log(error);
             }
         },
-        agregarPelea({ commit }, pelea) {
+       async agregarPelea({ commit }, pelea) {
             console.log(pelea);
             try {
-                const res = await fetch('http://localhost:3000/carteleras', {
+                const res = await fetch('http://localhost:3000/peleas', {
                     method: 'POST',
                     headers: { "Content-type": "application/x-www-form-urlencoded; charset=UTF-8" },
-                    body: JSON.stringify(cartelera),
+                    body: JSON.stringify(pelea),
 
                 });
 
                 const dataDB = await res.json();
                 console.log(dataDB);
                 if (dataDB.status == 200) {
-                    router.push('/')
+                   // router.push('/pelea.id_cartelera')
+                }else{
+                    alert(dataDB.detalle);
                 }
 
             } catch (error) {
