@@ -223,7 +223,7 @@ export default new Vuex.Store({
                 const dataDB = await res.json();
                 console.log(dataDB);
                 if (dataDB.status == 200) {
-                   // router.push('/pelea.id_cartelera')
+                   router.push(`/verCartelera/${pelea.id_cartelera}`)
                 }else{
                     alert(dataDB.detalle);
                 }

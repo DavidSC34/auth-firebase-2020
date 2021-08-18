@@ -46,15 +46,15 @@
                     <option value="WELTER">WELTER</option>
                     <option value="SUPERLIGHT">SUPERLIGHT</option>
                     <option value="LIGHT">LIGHT</option>
-                    <option value="">SUPERFEATHER</option>
-                    <option>FEATHER</option>
-                    <option>SUPERBANTAM</option>
-                    <option>BANTAM</option>
-                    <option>SUPERFLY</option>
-                    <option>FLY</option>
-                    <option>LIGHTFLY</option>
-                    <option>STRAW</option>
-                    <option>ATOM</option>
+                    <option value="SUPERFEATHER">SUPERFEATHER</option>
+                    <option value="FEATHER">FEATHER</option>
+                    <option value="SUPERBANTAM">SUPERBANTAM</option>
+                    <option value="BANTAM">BANTAM</option>
+                    <option value="SUPERFLY">SUPERFLY</option>
+                    <option value="FLY">FLY</option>
+                    <option value="LIGHTFLY">LIGHTFLY</option>
+                    <option value="STRAW">STRAW</option>
+                    <option value="ATOM">ATOM</option>
                 </select>
             </div>
             <div class="form-group">
