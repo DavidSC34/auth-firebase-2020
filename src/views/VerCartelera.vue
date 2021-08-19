@@ -1,9 +1,9 @@
 <template>
   <div class="mt-5">
-
+{{peleas[0]}}
     <h1 class="mb-4">Peleas en la cartelera</h1>
      <router-link :to="{name:'AgregarPelea', params: {id_cartelera:id}}" >
-            <button class='btn btn-primary mb-2'>Agregar</button>
+            <button class='btn btn-primary mb-2' :disabled="bloquearBoton">Agregar</button>
     </router-link>
    
 
@@ -36,12 +36,12 @@
                     <td>{{item.country_challenger}}</td>
                     <td>
                         
-                        <router-link :to="{name:'EditarPelea', params: {id: item.id}}"  class="float-right ml-2">
+                        <router-link :to="{name:'EditarPelea', params: {id: item.id}}"  class="float-right ml-2" v-if="item.uid == usuario.uid">
                            
-                            <i class="bi-file-text"></i>
+                            <i class="bi-pencil-square" style="color: cornflowerblue;"></i>
                         </router-link>
                         <!-- <button class='btn btn-danger float-right' @click="eliminarCartelera(item)">Eliminar</button> -->
-                         <i class="bi-trash float-right" @click="eliminarPelea(item)"></i>
+                         <i class="bi-trash float-right" style="color: cornflowerblue;" @click="eliminarPelea(item)" v-if="item.uid == usuario.uid"></i>
                     </td>
                 </tr>
             </tbody>
@@ -57,6 +57,7 @@ export default {
     data() {
         return {
             id: this.$route.params.id,
+            uid_cartelera:''
             
         }
     },
@@ -67,7 +68,12 @@ export default {
       ...mapActions(['getPeleasCartelera','eliminarPelea'])
     },   
     computed:{
-        ...mapState(['peleas'])
+        ...mapState(['peleas','usuario']),
+        bloquearBoton(){
+            if(this.peleas[0].uid_cartelera !== this.usuario.uid){
+                return true;
+            }
+        }
     }
 
     

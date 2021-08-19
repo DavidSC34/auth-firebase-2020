@@ -117,8 +117,13 @@ export default new Vuex.Store({
                 })
                 .catch(error => console.log(error))
         },
-        async agregarCartelera({ commit }, cartelera) {
+        async agregarCartelera({ commit,state }, cartelera) {
             console.log(cartelera);
+            // let carteleraData = {
+            //     usuarioLogeado:state.usuario,
+            //     cartelera:cartelera
+            // }
+            // console.log(carteleraData);
             try {
                 const res = await fetch('http://localhost:3000/carteleras', {
                     method: 'POST',
@@ -148,12 +153,17 @@ export default new Vuex.Store({
                 console.log(error);
             }
         },
-        async editarCartelera({ commit }, cartelera) {
+        async editarCartelera({ commit,state }, cartelera) {
+            let carteleraData = {
+                usuarioLogeado:state.usuario,
+                cartelera:cartelera
+            }
+            console.log(carteleraData);
             try {
                 const res = await fetch(`http://localhost:3000/carteleras/${cartelera.id}`, {
                     method: 'PUT',
                     headers: { "Content-type": "application/x-www-form-urlencoded; charset=UTF-8" },
-                    body: JSON.stringify(cartelera)
+                    body: JSON.stringify(carteleraData)
                 });
                 const resDB = await res.json();
                 // console.log(resDB);
@@ -191,14 +201,16 @@ export default new Vuex.Store({
                 console.log(error);
             }
         },
-        async eliminarCartelera({ commit }, cartelera) {
-            // console.log(cartelera);
-            // return;
+        async eliminarCartelera({ commit,state }, cartelera) {
+            let carteleraData = {
+                usuarioLogeado:state.usuario,
+                cartelera:cartelera
+            }
             try {
                 const res = await fetch(`http://localhost:3000/carteleras/${cartelera.id_cartelera}`, {
                     method: 'DELETE',
                     headers: { "Content-type": "application/x-www-form-urlencoded; charset=UTF-8" },
-                    body: JSON.stringify(cartelera)
+                    body: JSON.stringify(carteleraData)
                 });
                 const resDB = await res.json();
                 console.log(resDB);

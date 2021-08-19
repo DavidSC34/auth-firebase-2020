@@ -1,32 +1,14 @@
 <template>
 <div class="mt-2">
-
+{{usuario}}
     <h1>Carteleras</h1>
    
         <router-link to='/agregarCartelera'>
             <button class='btn btn-primary mb-2'>Agregar</button>
         </router-link>
-    <!-- <ul class="list-group">
-        <li v-for="(item,index) in tareas" :key="index" class="list-group-item">
-            {{item.id}} - {{item.nombre}}
-            <router-link :to="{name: 'Editar', params: {id: item.id}}" class="float-right ml-2">
-                    <button class='btn btn-warning'>Editar</button>
-            </router-link>
-             <button @click="eliminarTarea(item.id)" class='btn btn-danger float-right'>Eliminar</button>
-        </li>
-    </ul> -->
+  
 
-    <!-- <ul class="list-group">
-        <li v-for="(item,index) in carteleras" :key="index" class="list-group-item">
-                {{item.id_cartelera}} - {{item.date}} -  {{item.place}}
-                <router-link :to="{name:'EditarCartelera', params: {id: item.id}}"  class="float-right ml-2">
-                      <button class="btn btn-warning">Editar</button>
-                </router-link>
-                <button class='btn btn-danger float-right'>Eliminar</button>
-        </li>
-    </ul> -->
-
-    <div class="table-responsive-sm">
+    <div class="table-responsive-sm" v-if="carteleras.length >0">
         <table class="table">
             <thead class="thead-dark">
                 <tr>
@@ -50,17 +32,20 @@
                     <td>{{item.promoter}}</td>
                     <td>{{item.place}}</td>
                     <td>
-                        <router-link :to="{name:'VerCartelera', params: {id: item.id_cartelera}}"><i class="bi-card-list"></i></router-link>
-                        <router-link :to="{name:'EditarCartelera', params: {id: item.id_cartelera}}"  class="float-right ml-2">
+                        <router-link :to="{name:'VerCartelera', params: {id: item.id_cartelera}}"><i class="bi-card-list" style="color: cornflowerblue;"></i></router-link>
+                        <router-link :to="{name:'EditarCartelera', params: {id: item.id_cartelera}}"  class="float-right ml-2"  v-if="item.uid == usuario.uid ">
                             <!-- <button class="btn btn-warning">Editar</button> -->
-                            <i class="bi-file-text"></i>
+                            <i class="bi-pencil-square" style="color: cornflowerblue;"></i>
                         </router-link>
                         <!-- <button class='btn btn-danger float-right' @click="eliminarCartelera(item)">Eliminar</button> -->
-                         <i class="bi-trash float-right" @click="eliminarCartelera(item)" v-if="item.uid == usuario.uid "></i>
+                         <i class="bi-trash float-right" style="color: cornflowerblue;" @click="eliminarCartelera(item)" v-if="item.uid == usuario.uid "></i>
                     </td>
                 </tr>
             </tbody>
         </table>
+    </div>
+    <div v-else>
+        <p>No hay carteleras registradas</p>
     </div>
 
 </div>
