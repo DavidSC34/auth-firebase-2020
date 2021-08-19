@@ -23,7 +23,21 @@ export default new Vuex.Store({
             uid: ''
         },
         carteleras: [],
-        pelea: {},
+        pelea: {
+            id: '',
+            id_cartelera: '',
+            champion: '',
+            country_champion: '',
+            result: '',
+            challenger: '',
+            country_challenger: '',
+            gender: '',
+            organismo: '',
+            division: '',
+            title: '',
+            rounds: '',
+            uid: ''
+        },
         peleas: []
     },
     mutations: {
@@ -50,6 +64,9 @@ export default new Vuex.Store({
         },
         setPeleas(state, payload) {
             state.peleas = payload;
+        },
+        setPelea(state, payload) {
+            state.pelea = payload;
         }
     },
     actions: {
@@ -210,7 +227,7 @@ export default new Vuex.Store({
                 console.log(error);
             }
         },
-       async agregarPelea({ commit }, pelea) {
+        async agregarPelea({ commit }, pelea) {
             console.log(pelea);
             try {
                 const res = await fetch('http://localhost:3000/peleas', {
@@ -223,8 +240,8 @@ export default new Vuex.Store({
                 const dataDB = await res.json();
                 console.log(dataDB);
                 if (dataDB.status == 200) {
-                   router.push(`/verCartelera/${pelea.id_cartelera}`)
-                }else{
+                    router.push(`/verCartelera/${pelea.id_cartelera}`)
+                } else {
                     alert(dataDB.detalle);
                 }
 
@@ -232,8 +249,76 @@ export default new Vuex.Store({
                 console.log(error);
             }
         },
-        eliminarPelea({ commit }, pelea) {
+        async getPelea({ commit }, id) {
+            try {
+                console.log(id);
+                const res = await fetch(`http://localhost:3000/peleas/${id}`);
+                const peleaDB = await res.json();
+                console.log(peleaDB.detalle[0]);
+                let pelea = {
+                    id: peleaDB.detalle[0].id,
+                    id_cartelera: peleaDB.detalle[0].id_cartelera,
+                    champion: peleaDB.detalle[0].champion,
+                    country_champion: peleaDB.detalle[0].country_champion,
+                    result: peleaDB.detalle[0].result,
+                    challenger: peleaDB.detalle[0].id_cartelera,
+                    country_challenger: peleaDB.detalle[0].challenger,
+                    gender: peleaDB.detalle[0].gender,
+                    organismo: peleaDB.detalle[0].organismo,
+                    division: peleaDB.detalle[0].division,
+                    title: peleaDB.detalle[0].title,
+                    rounds: peleaDB.detalle[0].rounds,
+                    uid: peleaDB.detalle[0].uid
+                }
+                if (res.status == 200) {
+
+                    commit('setPelea', pelea);
+                } else {
+                    alert(peleaDB.detalle[0])
+                }
+
+            } catch (error) {
+                console.log(error);
+            }
+        },
+        async editarPelea({ commit }, pelea) {
             console.log(pelea);
+            try {
+                const res = await fetch(`http://localhost:3000/peleas/${pelea.id}`, {
+                    method: 'PUT',
+                    headers: { "Content-type": "application/x-www-form-urlencoded; charset=UTF-8" },
+                    body: JSON.stringify(pelea)
+                });
+                const resDB = await res.json();
+                // console.log(resDB);
+                if (resDB.status == 200) {
+                    router.push(`/verCartelera/${pelea.id_cartelera}`)
+                } else {
+                    alert(resDB.detalle);
+                }
+
+            } catch (error) {
+                console.log(error);
+            }
+        },
+        async eliminarPelea({ commit }, pelea) {
+            console.log(pelea);
+            try {
+                const res = await fetch(`http://localhost:3000/peleas/${pelea.id}`, {
+                    method: 'DELETE',
+                    headers: { "Content-type": "application/x-www-form-urlencoded; charset=UTF-8" },
+                    body: JSON.stringify(pelea)
+                });
+                const resDB = await res.json();
+                console.log(resDB);
+                if (resDB.status == 200) {
+                    this.state.peleas = this.state.peleas.filter(item => item.id !== pelea.id)
+                } else {
+                    alert(resDB.detalle);
+                }
+            } catch (error) {
+                console.log(error);
+            }
         },
         crearUsuario({ commit }, usuario) {
 

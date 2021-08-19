@@ -22,9 +22,23 @@
                   <label for="country_challenger">Pais retador</label>
                   <input type="text" v-model="pelea.country_challenger" class="form-control mb-2" placeholder="Ingresa pais" id="country_challenger">
              </div>
-            <div class="form-group">
+            <!-- <div class="form-group">
                  <label for="gender">Genero</label>
                  <input type="text" v-model="pelea.gender" class="form-control mb-2" placeholder="Ingresa titulo" id="gender">
+            </div> -->
+            <div class="form-group">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="gender" v-model="pelea.gender" id="male" value="MALE" >
+                        <label class="form-check-label" for="male">
+                        MALE
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="gender" v-model="pelea.gender" id="female" value="FEMALE" >
+                        <label class="form-check-label" for="female">
+                        FEMALE
+                        </label>
+                    </div>
             </div>
             <div class="form-group">
                  <label for="organismo">Organismo</label>

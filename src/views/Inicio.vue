@@ -56,7 +56,7 @@
                             <i class="bi-file-text"></i>
                         </router-link>
                         <!-- <button class='btn btn-danger float-right' @click="eliminarCartelera(item)">Eliminar</button> -->
-                         <i class="bi-trash float-right" @click="eliminarCartelera(item)"></i>
+                         <i class="bi-trash float-right" @click="eliminarCartelera(item)" v-if="item.uid == usuario.uid "></i>
                     </td>
                 </tr>
             </tbody>
