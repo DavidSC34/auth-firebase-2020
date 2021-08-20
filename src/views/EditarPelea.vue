@@ -87,7 +87,7 @@
             <button type="submit" class="btn btn-primary" :disabled="bloquear">Guardar</button>
         </form>
         {{pelea}}
-        {{usuario}}
+
     </div>
 </template>
 
