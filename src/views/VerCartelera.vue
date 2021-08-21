@@ -1,13 +1,14 @@
 <template>
   <div class="mt-5">
-{{peleas[0]}}
+{{usuario}}
     <h1 class="mb-4">Peleas en la cartelera</h1>
      <router-link :to="{name:'AgregarPelea', params: {id_cartelera:id}}" >
             <button class='btn btn-primary mb-2' :disabled="bloquearBoton">Agregar</button>
+            <!-- <button class='btn btn-primary mb-2' >Agregar</button> -->
     </router-link>
    
 
-    <div class="table-responsive-sm">
+    <div class="table-responsive-sm" v-if="peleas.length > 0">
         <table class="table">
             <thead class="thead-dark">
                 <tr>
@@ -47,6 +48,9 @@
             </tbody>
         </table>
     </div>
+    <div v-else>
+        <p class="text-center">No hay peleas registradas</p>
+    </div>
   </div>
 </template>
 
@@ -56,24 +60,25 @@ export default {
     name:'VerCartelera',
     data() {
         return {
-            id: this.$route.params.id,
-            uid_cartelera:''
+            id: this.$route.params.id,           
             
         }
     },
     created(){
+        this.getCartelera(this.id);
         this.getPeleasCartelera(this.id);
     },
     methods:{
-      ...mapActions(['getPeleasCartelera','eliminarPelea'])
+      ...mapActions(['getPeleasCartelera','eliminarPelea','getCartelera'])
     },   
     computed:{
-        ...mapState(['peleas','usuario']),
+        ...mapState(['peleas','usuario','cartelera']),
         bloquearBoton(){
-            if(this.peleas[0].uid_cartelera !== this.usuario.uid){
+            if(this.cartelera.uid !== this.usuario.uid){
                 return true;
             }
         }
+        
     }
 
     

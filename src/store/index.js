@@ -117,7 +117,7 @@ export default new Vuex.Store({
                 })
                 .catch(error => console.log(error))
         },
-        async agregarCartelera({ commit,state }, cartelera) {
+        async agregarCartelera({ commit, state }, cartelera) {
             console.log(cartelera);
             // let carteleraData = {
             //     usuarioLogeado:state.usuario,
@@ -143,20 +143,28 @@ export default new Vuex.Store({
             }
         },
         async getCarteleras({ commit }) {
-            //const carteleras = [];
+            let carteleras = [];
             try {
                 const res = await fetch('http://localhost:3000/carteleras');
                 const dataDB = await res.json();
                 // console.log(typeof dataDB.detalle);
-                commit('setCarteleras', dataDB.detalle);
+                if (dataDB.status == 200 && dataDB.total_registros > 0) {
+                    carteleras = dataDB.detalle;
+                    commit('setCarteleras', dataDB.detalle);
+                } else if (dataDB.status == 200 && dataDB.total_registros == 0) {
+                    commit('setCarteleras', carteleras);
+
+                } else {
+                    alert(dataDB.detalle)
+                }
             } catch (error) {
                 console.log(error);
             }
         },
-        async editarCartelera({ commit,state }, cartelera) {
+        async editarCartelera({ commit, state }, cartelera) {
             let carteleraData = {
-                usuarioLogeado:state.usuario,
-                cartelera:cartelera
+                usuarioLogeado: state.usuario,
+                cartelera: cartelera
             }
             console.log(carteleraData);
             try {
@@ -201,10 +209,10 @@ export default new Vuex.Store({
                 console.log(error);
             }
         },
-        async eliminarCartelera({ commit,state }, cartelera) {
+        async eliminarCartelera({ commit, state }, cartelera) {
             let carteleraData = {
-                usuarioLogeado:state.usuario,
-                cartelera:cartelera
+                usuarioLogeado: state.usuario,
+                cartelera: cartelera
             }
             try {
                 const res = await fetch(`http://localhost:3000/carteleras/${cartelera.id_cartelera}`, {
@@ -225,15 +233,19 @@ export default new Vuex.Store({
         },
 
         async getPeleasCartelera({ commit }, id) {
+            let peleas = [];
             try {
                 const res = await fetch(`http://localhost:3000/pelea-cartelera/${id}`);
                 const dataDB = await res.json();
-                // console.log(typeof dataDB.detalle);
-                if (dataDB.status == 200) {
-
-                    commit('setPeleas', dataDB.detalle);
+                console.log(dataDB);
+                if (dataDB.status == 200 && dataDB.total_registros > 0) {
+                    peleas = dataDB.detalle;
+                    commit('setPeleas', peleas);
+                } else if (dataDB.status == 200 && dataDB.total_registros == 0) {
+                    commit('setPeleas', peleas);
                 } else {
                     alert(dataDB.detalle);
+
                 }
             } catch (error) {
                 console.log(error);
@@ -273,8 +285,8 @@ export default new Vuex.Store({
                     champion: peleaDB.detalle[0].champion,
                     country_champion: peleaDB.detalle[0].country_champion,
                     result: peleaDB.detalle[0].result,
-                    challenger: peleaDB.detalle[0].id_cartelera,
-                    country_challenger: peleaDB.detalle[0].challenger,
+                    challenger: peleaDB.detalle[0].challenger,
+                    country_challenger: peleaDB.detalle[0].country_challenger,
                     gender: peleaDB.detalle[0].gender,
                     organismo: peleaDB.detalle[0].organismo,
                     division: peleaDB.detalle[0].division,
