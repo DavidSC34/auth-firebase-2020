@@ -21,6 +21,13 @@ const routes = [
         meta: { requiresAuth: true }
     },
     {
+        path: '/miscasteleras',
+        name: 'MisCarteleras',
+        component: () =>
+            import ( /* webpackChunkName: "inicio" */ '../views/MisCarteleras.vue'),
+        meta: { requiresAuth: true }
+    },
+    {
         path: '/acceso',
         name: 'Acceso',
         component: () =>
