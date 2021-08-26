@@ -6,7 +6,9 @@ import router from '../router';
 Vue.use(Vuex)
 
 export default new Vuex.Store({
+
     state: {
+        urlapi: 'http://boxingresults.org/api',
         usuario: null,
         error: null,
         tareas: [],
@@ -125,7 +127,7 @@ export default new Vuex.Store({
             // }
             // console.log(carteleraData);
             try {
-                const res = await fetch('http://localhost:3000/carteleras', {
+                const res = await fetch(`${state.urlapi}/carteleras`, {
                     method: 'POST',
                     headers: { "Content-type": "application/x-www-form-urlencoded; charset=UTF-8" },
                     body: JSON.stringify(cartelera),
@@ -142,10 +144,11 @@ export default new Vuex.Store({
                 console.log(error);
             }
         },
-        async getCarteleras({ commit }) {
+        async getCarteleras({ commit, state }) {
             let carteleras = [];
+            console.log(state.urlapi);
             try {
-                const res = await fetch('http://localhost:3000/carteleras');
+                const res = await fetch(`${state.urlapi}/carteleras`);
                 const dataDB = await res.json();
                 // console.log(typeof dataDB.detalle);
                 if (dataDB.status == 200 && dataDB.total_registros > 0) {
@@ -168,7 +171,7 @@ export default new Vuex.Store({
             }
             console.log(carteleraData);
             try {
-                const res = await fetch(`http://localhost:3000/carteleras/${cartelera.id}`, {
+                const res = await fetch(`${state.urlapi}/carteleras/${cartelera.id}`, {
                     method: 'PUT',
                     headers: { "Content-type": "application/x-www-form-urlencoded; charset=UTF-8" },
                     body: JSON.stringify(carteleraData)
@@ -185,10 +188,10 @@ export default new Vuex.Store({
                 console.log(error);
             }
         },
-        async getCartelera({ commit }, id) {
+        async getCartelera({ commit, state }, id) {
             try {
                 console.log(id);
-                const res = await fetch(`http://localhost:3000/carteleras/${id}`);
+                const res = await fetch(`${state.urlapi}/carteleras/${id}`);
                 const dataDB = await res.json();
                 console.log(dataDB.detalle[0]);
                 let cartelera = {
@@ -215,7 +218,7 @@ export default new Vuex.Store({
                 cartelera: cartelera
             }
             try {
-                const res = await fetch(`http://localhost:3000/carteleras/${cartelera.id_cartelera}`, {
+                const res = await fetch(`${state.urlapi}/carteleras/${cartelera.id_cartelera}`, {
                     method: 'DELETE',
                     headers: { "Content-type": "application/x-www-form-urlencoded; charset=UTF-8" },
                     body: JSON.stringify(carteleraData)
@@ -232,10 +235,10 @@ export default new Vuex.Store({
             }
         },
 
-        async getPeleasCartelera({ commit }, id) {
+        async getPeleasCartelera({ commit, state }, id) {
             let peleas = [];
             try {
-                const res = await fetch(`http://localhost:3000/pelea-cartelera/${id}`);
+                const res = await fetch(`${state.urlapi}/pelea-cartelera/${id}`);
                 const dataDB = await res.json();
                 console.log(dataDB);
                 if (dataDB.status == 200 && dataDB.total_registros > 0) {
@@ -251,10 +254,10 @@ export default new Vuex.Store({
                 console.log(error);
             }
         },
-        async agregarPelea({ commit }, pelea) {
+        async agregarPelea({ commit, state }, pelea) {
             console.log(pelea);
             try {
-                const res = await fetch('http://localhost:3000/peleas', {
+                const res = await fetch(`${state.urlapi}/peleas`, {
                     method: 'POST',
                     headers: { "Content-type": "application/x-www-form-urlencoded; charset=UTF-8" },
                     body: JSON.stringify(pelea),
@@ -273,10 +276,10 @@ export default new Vuex.Store({
                 console.log(error);
             }
         },
-        async getPelea({ commit }, id) {
+        async getPelea({ commit, state }, id) {
             try {
                 console.log(id);
-                const res = await fetch(`http://localhost:3000/peleas/${id}`);
+                const res = await fetch(`${state.urlapi}/peleas/${id}`);
                 const peleaDB = await res.json();
                 console.log(peleaDB.detalle[0]);
                 let pelea = {
@@ -305,10 +308,10 @@ export default new Vuex.Store({
                 console.log(error);
             }
         },
-        async editarPelea({ commit }, pelea) {
+        async editarPelea({ commit, state }, pelea) {
             console.log(pelea);
             try {
-                const res = await fetch(`http://localhost:3000/peleas/${pelea.id}`, {
+                const res = await fetch(`${state.urlapi}/peleas/${pelea.id}`, {
                     method: 'PUT',
                     headers: { "Content-type": "application/x-www-form-urlencoded; charset=UTF-8" },
                     body: JSON.stringify(pelea)
@@ -325,10 +328,10 @@ export default new Vuex.Store({
                 console.log(error);
             }
         },
-        async eliminarPelea({ commit }, pelea) {
+        async eliminarPelea({ commit, state }, pelea) {
             console.log(pelea);
             try {
-                const res = await fetch(`http://localhost:3000/peleas/${pelea.id}`, {
+                const res = await fetch(`${state.urlapi}/peleas/${pelea.id}`, {
                     method: 'DELETE',
                     headers: { "Content-type": "application/x-www-form-urlencoded; charset=UTF-8" },
                     body: JSON.stringify(pelea)
