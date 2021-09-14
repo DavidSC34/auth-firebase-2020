@@ -34,8 +34,8 @@
             <input type="hidden" v-model="cartelera.uid">
             <button type="submit" class="btn btn-primary">Agregar</button>
         </form>
-        {{cartelera}}
-        {{usuario}}
+        <!-- {{cartelera}}
+        {{usuario}} -->
     </div>
 </template>
 

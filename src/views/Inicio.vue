@@ -1,6 +1,6 @@
 <template>
 <div class="mt-2">
-{{usuario}}
+<!-- {{usuario}} -->
     <h1>Carteleras</h1>
    
         <router-link to='/agregarCartelera'>
@@ -12,7 +12,7 @@
         <table class="table">
             <thead class="thead-dark">
                 <tr>
-                    <th scope="col">#</th>
+                    <!-- <th scope="col">#</th> -->
                     <th scope="col">Date</th>
                     <th scope="col">Country</th>
                     <th scope="col">City</th>
@@ -24,7 +24,7 @@
             </thead>
             <tbody>
                 <tr v-for="(item,index) in carteleras" :key="index" >
-                    <td>{{item.id_cartelera}}</td>
+                    <!-- <td>{{item.id_cartelera}}</td> -->
                     <td>{{item.date}}</td>
                     <td>{{item.country}}</td>
                     <td>{{item.city}}</td>

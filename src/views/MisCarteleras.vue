@@ -1,6 +1,6 @@
 <template>
 <div class="mt-2">
-{{usuario}}
+<!-- {{usuario}} -->
     <h1>Mis Carteleras</h1>
    
         <router-link to='/agregarCartelera'>

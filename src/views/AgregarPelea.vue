@@ -86,7 +86,7 @@
             <input type="hidden" v-model="pelea.id_cartelera">
             <button type="submit" class="btn btn-primary" :disabled="bloquear">Agregar</button>
         </form>
-        {{pelea}}
+        <!-- {{pelea}} -->
     </div>
 </template>
 <script>

@@ -1,6 +1,6 @@
 <template>
   <div class="mt-5">
-{{usuario}}
+<!-- {{usuario}} -->
     <h1 class="mb-4">Peleas en la cartelera</h1>
      <router-link :to="{name:'AgregarPelea', params: {id_cartelera:id}}" >
             <button class='btn btn-primary mb-2' :disabled="bloquearBoton">Agregar</button>
@@ -12,7 +12,7 @@
         <table class="table">
             <thead class="thead-dark">
                 <tr>
-                    <th scope="col">#</th>
+                    <!-- <th scope="col">#</th> -->
                     <th scope="col">Champion</th>
                     <th scope="col">Country</th>
                     <th scope="col">Result</th>
@@ -26,7 +26,7 @@
             </thead>
             <tbody>
                 <tr v-for="(item,index) in peleas" :key="index" >
-                    <td>{{item.id}}</td>
+                    <!-- <td>{{item.id}}</td> -->
                     <td>{{item.champion}}</td>
                     <td>{{item.country_champion}}</td>
                     <td>{{item.result}}</td>
